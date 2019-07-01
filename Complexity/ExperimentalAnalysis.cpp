@@ -1,5 +1,6 @@
 // ExperimentalAnalysis
 #include <iostream>
+#include <ctime>
 using namespace std;
 
 void merge(int *x,int *y,int *a,int s,int e){
@@ -35,7 +36,7 @@ void MergeSort(int *a,int s,int e){
 	// Recursive case
 	// Divide
 	int mid = (s+e)/2;
-	int x[100],y[100];
+	int x[1000],y[1000];
 	for(int i=s;i<=mid;i++){
 		x[i]=a[i];
 	}
@@ -54,8 +55,38 @@ void BubbleSort(int *a,int n){
 	{
 		for(int j = 0;j<=n-2-i;j++){
 			if(a[j]>a[j+1]){
-				
+				swap(a[j],a[j+1]);
 			}
 		}
 	}
+	return;
+}
+
+int main()
+{
+	int a[1000];
+	int n;
+	cin>>n;
+	for (int i = 0; i < n; ++i)
+	{
+		a[i]=n-1;
+	}
+
+	clock_t t;
+	t = clock();
+	MergeSort(a,0,n-1);
+	t = clock() - t;
+	cout<<"MergeSort took : "<<t<<endl;
+
+	for (int i = 0; i < n; ++i)
+	{
+		a[i]=n-1;
+	}
+
+	t = clock();
+	BubbleSort(a,n);
+	t = clock() - t;
+	cout<<"BubbleSort took : "<<t<<endl;
+
+	return 0;
 }
