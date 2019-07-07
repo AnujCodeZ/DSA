@@ -156,6 +156,57 @@ node* LevelOrderInput(){
 	return root;
 }
 
+class LinkedList
+{
+public:
+	node* head;
+	node* tail;	
+};
+LinkedList BstToLL(node* root){
+	LinkedList l;
+	//Base Case
+	if(root == NULL){
+		l.head = l.tail = NULL;
+		return l;
+	}
+	//Recursive Case
+	if(root->right==NULL && root->left!=NULL){
+		LinkedList left = BstToLL(root->left);
+		left.tail->right = root;
+		l.head = left.head;
+		l.tail = root;
+		return l;
+	}
+	else if(root->right!=NULL && root->left==NULL){
+		LinkedList right = BstToLL(root->right);
+		root->right = right.head;
+		l.head = root;
+		l.tail = right.tail;
+		return l;
+	}
+	else if(root->right==NULL && root->left==NULL){
+		l.head = l.tail = root;
+		return l;
+	}
+	else{
+		LinkedList left = BstToLL(root->left);
+		LinkedList right = BstToLL(root->right);
+		left.tail->right = root;
+		root->right = right.head;
+		l.head = left.head;
+		l.tail = right.tail;
+		return l;
+	}
+}
+
+void PrintLL(node* head){
+	while(head){
+		cout<<head->data<<"->";
+		head = head->right;
+	}
+	cout<<endl;
+}
+
 int main()
 {
 	node* root = BuildTree();
@@ -189,6 +240,9 @@ int main()
 	cout<<"Input Level Order : "<<endl;
 	node* root2 = LevelOrderInput();
 	PrintOrderLevel(root2);
+
+	LinkedList l = BstToLL(root);
+	PrintLL(l.head);
 
 	return 0;
 }
