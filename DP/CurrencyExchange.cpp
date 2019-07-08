@@ -1,4 +1,6 @@
-// CurrencyExchange
+/* --------------------------------CurrencyExchange-------------------------
+You are given an amount and currency array of coins you find minimum coins to fill this amount*/
+
 #include <iostream>
 #include <climits>
 using namespace std;

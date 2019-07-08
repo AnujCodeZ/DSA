@@ -1,5 +1,8 @@
 /* -----------------------MinStepsToOne-------------------------------
-In this problem we are given a number n*/
+In this problem we are given a number n and then perform these three operations to make it one in minimum steps : 
+1. Divide by 3 if it is.
+2. Divide by 2 if it is.
+3. Subtract one */
 #include <iostream>
 #include <climits>
 using namespace std;
@@ -66,7 +69,6 @@ int main()
 	{
 		arr[i] = -1;
 	}
-
 	cout<<topDown(n,arr)<<endl;
 	cout<<BottomUp(n)<<endl;
 
