@@ -18,6 +18,37 @@ int topDown(int *wine, int i,int j,int day,int a[][100]){
 	return a[i][j];
 }
 
+int Bottomup(int *wine, int n){
+	int dp[100][100] = {0};
+	int day = n;
+	for (int i = 0; i < n; ++i)
+	{
+		dp[i][i] = day*wine[i];
+	}
+	day--;
+	for(int len = 2;len<=n;len++){
+		int starti = 0;
+		int endi = n - len;
+		int i = 0;
+		while(i<=endi){
+			int j = i+len-1;
+			int op1 = wine[i]*day + dp[i+1][j];
+			int op2 = wine[j]*day + dp[i][j-1];
+			dp[i][j] = max(op1,op2);
+			i++;
+		}
+		day--;
+	}
+	for(int i=0;i<n;i++){
+		for(int j=0;j<n;j++){
+			cout<<dp[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	return dp[0][n-1];
+
+}
+
 int main()
 {
 	int arr[100][100];
@@ -32,6 +63,7 @@ int main()
 	int n = sizeof(wine)/sizeof(int);
 
 	cout<<topDown(wine,0,n-1,1,arr)<<endl;
+	cout<<Bottomup(wine,n)<<endl;
 	// for(int i=0;i<n;i++){
 	// 	for(int j=0;j<n;j++){
 	// 		cout<<arr[i][j]<<" ";
