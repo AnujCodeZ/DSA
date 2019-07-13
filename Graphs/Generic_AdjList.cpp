@@ -74,9 +74,9 @@ public:
  				}
  			}
  		}
- 		for(auto x:dist){
- 			cout<<"Distance from "<<x.first<<" to "<<src<<" is "<<x.second<<endl;
- 		}
+ 		// for(auto x:dist){
+ 		// 	cout<<"Distance from "<<x.first<<" to "<<src<<" is "<<x.second<<endl;
+ 		// }
  		T temp = des;
  		while(temp!=src){
  			cout<<temp<<"<--";
@@ -84,6 +84,30 @@ public:
  		}
  		cout<<src<<endl;
  		return dist[des];
+ 	}
+
+ 	void DFSHelper(T src, map<T,bool> &visited){
+ 		cout<<src<<" ";
+ 		visited[src] = true;
+ 		for(auto children:adjList[src]){
+ 			if(!visited[src]){
+ 				DFSHelper(children,visited);
+ 			}
+ 		}
+
+ 	}
+ 	void DFS(T src){
+ 		map<int,bool> visited;
+ 		int component = 1;
+ 		DFSHelper(src,visited);
+ 		for(auto node:adjList){
+ 			if(!visited[node.first]){
+ 				component++;
+ 				DFSHelper(node.first,visited);
+ 			}
+ 		}
+ 		cout<<endl;
+ 		cout<<"No. of components : "<<component<<endl;
  	}
 };
 
@@ -96,10 +120,13 @@ int main()
 	g.addEdge(2,3);
 	g.addEdge(3,4);
 	g.addEdge(3,5);
+	g.addEdge(10,15);
+	g.addEdge(20,10);
+
 	g.BFS(0);
 	cout<<g.SSSP(0,5)<<endl;
+	g.DFS(0);
 	g.Print();
-
 
 	return 0;
 }
